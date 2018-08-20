@@ -22,6 +22,7 @@ import UIKit
     */
     @discardableResult
     func showWaitOverlay() -> UIView {
+        UIApplication.shared.beginIgnoringInteractionEvents
         return SwiftOverlays.showCenteredWaitOverlay(self.view)
     }
     
@@ -36,6 +37,7 @@ import UIKit
     */
     @discardableResult
     func showWaitOverlayWithText(_ text: String) -> UIView  {
+        UIApplication.shared.beginIgnoringInteractionEvents
         return SwiftOverlays.showCenteredWaitOverlayWithText(self.view, text: text)
     }
     
@@ -50,6 +52,7 @@ import UIKit
     */
     @discardableResult
     func showTextOverlay(_ text: String) -> UIView  {
+        UIApplication.shared.beginIgnoringInteractionEvents
         return SwiftOverlays.showTextOverlay(self.view, text: text)
     }
     
@@ -64,6 +67,7 @@ import UIKit
     */
     @discardableResult
     func showProgressOverlay(_ text: String) -> UIView  {
+        UIApplication.shared.beginIgnoringInteractionEvents
         return SwiftOverlays.showProgressOverlay(self.view, text: text)
     }
     
@@ -79,6 +83,7 @@ import UIKit
     */
     @discardableResult
     func showImageAndTextOverlay(_ image: UIImage, text: String) -> UIView  {
+        UIApplication.shared.beginIgnoringInteractionEvents
         return SwiftOverlays.showImageAndTextOverlay(self.view, image: image, text: text)
     }
     
@@ -90,6 +95,7 @@ import UIKit
         - parameter animated: Should appearing be animated
     */
     class func showOnTopOfStatusBar(_ notificationView: UIView, duration: TimeInterval, animated: Bool = true) {
+        UIApplication.shared.beginIgnoringInteractionEvents
         SwiftOverlays.showOnTopOfStatusBar(notificationView, duration: duration, animated: animated)
     }
     
@@ -97,6 +103,9 @@ import UIKit
         Removes all overlays from view controller's main view
     */
     func removeAllOverlays() {
+        if(UIApplication.shared.isIgnoringInteractionEvents){
+            UIApplication.shared.endIgnoringInteractionEvents()
+        }
         SwiftOverlays.removeAllOverlaysFromView(self.view)
     }
     
